@@ -1,30 +1,26 @@
-#!/usr/bin/env node
-/* eslint-disable no-console */
 const _ = require('lodash');
-const readInput = require('./util/readInput');
-readInput.then((input) => input[0].split('\t'))
-.map((input) => parseInt(input))
-.then((input) => {
-  let array = input;
-  const length = input.length;
-  const seen = [];
-  let itr = 0;
+
+module.exports = (input) => {
+  const memory = input.split('\t')
+    .map((input) => parseInt(input));
+
+  const history = [];
+  let cycles = 0;
 
   do {
-    seen.push(array.join(','));
+    history.push(memory.join(','));
 
-    const max = _.max(array);
-    const index = _.indexOf(array, max);
+    const blocks = _.max(memory);
+    const bank = _.indexOf(memory, blocks);
 
-    array[index] = 0;
+    memory[bank] = 0;
 
-    for (let dist = 1; dist <= max; dist++) {
-      array[(index + dist) % length]++;
+    for (let block = 1; block <= blocks; block++) {
+      memory[(bank + block) % memory.length]++;
     }
 
-    itr++;
-  } while (!_.includes(seen, array.join(',')))
+    cycles++;
+  } while (!_.includes(history, memory.join(',')))
 
-  return itr;
-})
-.then(console.log);
+  return cycles;
+}

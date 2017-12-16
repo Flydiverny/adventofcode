@@ -1,42 +1,34 @@
-#!/usr/bin/env node
-/* eslint-disable no-console */
 const _ = require('lodash');
-const readFile = require('./util/readFile');
-readFile('input/8.dat')
-  .then((input) => input.split(/\n/))
-  .filter((input) => input)
-  .map((instr) => {
-    const match = instr.match(/(\w+) (\w+) (-?\d+) if (\w+) (.*)/);
 
-    const result = {
-      target: match[1],
-      factor: match[2] === 'inc' ? 1 : -1,
-      value: match[3],
-      compare: match[4],
-      condition: match[5],
-    };
+module.exports = (input) => {
+  const registry = {};
+  let highestValue = 0;
 
-    return result;
-  })
-  .then((instructions) => {
-    const registry = {};
-    let highestValue = 0;
+  input.split(/\n/)
+    .map((instr) => {
+      const match = instr.match(/(\w+) (\w+) (-?\d+) if (\w+) (.*)/);
 
-    instructions.forEach(({ target, factor, value, compare, condition }) => {
-      const compareValue = registry[compare] || 0;
+      return {
+        write: match[1],
+        sign: match[2] === 'inc' ? 1 : -1,
+        value: match[3],
+        read: match[4],
+        condition: match[5],
+      };
+    }).forEach(({ write, sign, value, read, condition }) => {
+      const readValue = registry[read] ||  0;
 
-      if (eval(`${compareValue} ${condition}`)) {
-        const targetValue = registry[target] || 0;
-        registry[target] = targetValue + factor * value;
+      if (eval(`${readValue} ${condition}`)) {
+        const writeValue = registry[write] || 0;
+        registry[write] = writeValue + sign * value;
       }
 
       highestValue = Math.max(highestValue, findMax(registry));
     });
 
-    return highestValue;
-  })
-  .then(console.log);
+  return highestValue;
+}
 
-  const findMax = (registry) => {
-   return _.maxBy(_.toPairs(registry), ([reg, value]) => value)[1];
-  }
+const findMax = (registry) => {
+  return _.maxBy(_.toPairs(registry), ([reg, value]) => value)[1];
+}

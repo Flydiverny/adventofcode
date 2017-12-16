@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-/* eslint-disable no-console */
 const _ = require('lodash');
 
 module.exports = (rawInput) => {
