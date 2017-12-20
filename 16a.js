@@ -1,6 +1,5 @@
 const _ = require('lodash');
-function rlog(...params) { console.log(...params); return params[params.length - 1]; }
-function clog(condition, ...params) { if (condition) { console.log(...params); } return params[params.length - 1]; }
+
 module.exports = (input) => {
   const moves = input.split(',')
   const programs = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'];
