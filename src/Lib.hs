@@ -2,5 +2,5 @@ module Lib
     ( someFunc
     ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+someFunc :: String -> IO ()
+someFunc x = putStrLn x
