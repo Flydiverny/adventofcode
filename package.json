@@ -1,0 +1,13 @@
+{
+  "name": "@flydiverny/aoc-2019",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Flydiverny/adventofcode.git",
+  "author": "Markus Maga <markus@maga.se>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "meow": "^5.0.0",
+    "ramda": "^0.26.1"
+  }
+}
