@@ -9,5 +9,4 @@ const calculateFuel = mass => {
   return fuel + calculateFuel(fuel);
 };
 
-export default rawData =>
-  R.pipe(R.map(parseInt), R.map(calculateFuel), R.sum)(rawData);
+export default R.pipe(R.map(parseInt), R.map(calculateFuel), R.sum);
