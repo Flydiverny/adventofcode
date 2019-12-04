@@ -44,7 +44,11 @@ const foo = async ([day, part = "a"], { input }) => {
   const [pipe, inData] = await Promise.all([pipePromise, inputPromise]);
 
   try {
+    const NS_PER_SEC = 1e9;
+    const time = process.hrtime();
     const result = await solution((pipe || inData).split("\n"));
+    const diff = process.hrtime(time);
+    console.log(`Benchmark took ${diff[0]}s + ${diff[1] / 1000000}ms`);
     console.log(result);
   } catch (err) {
     console.error("Solution failed", err);
