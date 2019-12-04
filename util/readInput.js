@@ -1,4 +1,4 @@
-const Promise = require('bluebird');
+import Promise from "bluebird";
 
 const inputPromise = new Promise((resolve, reject) => {
   if (process.stdin.isTTY) {
@@ -10,15 +10,14 @@ const inputPromise = new Promise((resolve, reject) => {
   const inputChunks = [];
 
   stdin.resume();
-  stdin.setEncoding('utf8');
-  stdin.on('data', (chunk) => {
+  stdin.setEncoding("utf8");
+  stdin.on("data", chunk => {
     inputChunks.push(chunk);
   });
 
-  stdin.on('end', () => {
+  stdin.on("end", () => {
     resolve(inputChunks);
   });
 });
 
-
-module.exports = inputPromise;
+export default inputPromise;

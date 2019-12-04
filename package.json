@@ -5,8 +5,12 @@
   "repository": "git@github.com:Flydiverny/adventofcode.git",
   "author": "Markus Maga <markus@maga.se>",
   "license": "MIT",
+  "type": "module",
+  "scripts": {},
   "dependencies": {
     "bluebird": "^3.7.2",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.15",
     "meow": "^5.0.0",
     "ramda": "^0.26.1"
   }
