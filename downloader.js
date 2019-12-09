@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
-const Promise = require("bluebird");
-const fetch = require("isomorphic-fetch");
-const meow = require("meow");
-const _ = require("lodash");
-const { promisify } = require("util");
+import Promise from "bluebird";
+import fetch from "isomorphic-fetch";
+import meow from "meow";
+import _ from "lodash";
+import fs from "fs";
+import { promisify } from "util";
 
-const writeFile = promisify(require("fs").writeFile);
+const writeFile = promisify(fs.writeFile);
 
 const cli = meow(`
 	Usage
@@ -16,7 +17,7 @@ const cli = meow(`
 	  $ downloader 6e535dc603a94699ab19833a38ad5e5b...
 `);
 
-const foo = ([cookie]) => {
+const foo = async ([cookie]) => {
   Promise.all(
     _.chain(Array(25))
       .map((x, i) => i + 1)
